@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+class Character {
+    String name;
+    int health;
+    
+    Character(String name, int health) {
+        this.name = name;
+        this.health = health;
+    }
+    
+    void attack(Character opponent) {
+        System.out.println(name + " attacks " + opponent.name);
+        opponent.health -= 20;
+        System.out.println(opponent.name + " health: " + opponent.health);
+    }
+}
+
+public class StreetFighterGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        Character player1 = new Character("Ryu", 100);
+        Character player2 = new Character("Ken", 100);
+        
+        System.out.println("Welcome to Street Fighter Game!");
+        
+        while (player1.health > 0 && player2.health > 0) {
+            System.out.println("\n" + player1.name + " vs " + player2.name);
+            System.out.println("1. Attack");
+            System.out.println("2. Quit");
+            System.out.print("Select an action: ");
+            int choice = scanner.nextInt();
+            
+            if (choice == 1) {
+                player1.attack(player2);
+                if (player2.health <= 0) {
+                    System.out.println(player1.name + " wins!");
+                    break;
+                }
+                player2.attack(player1);
+                if (player1.health <= 0) {
+                    System.out.println(player2.name + " wins!");
+                    break;
+                }
+            } else if (choice == 2) {
+                System.out.println("Quitting the game.");
+                break;
+            } else {
+                System.out.println("Invalid choice. Try again.");
+            }
+        }
+        
+        System.out.println("Game Over");
+    }
+}
